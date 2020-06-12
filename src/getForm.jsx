@@ -1,45 +1,38 @@
 import React, { Component } from "react";
 
 class GetForm extends Component {
-	constructor(props){
-		super(props);
-		// this.state = {employeeId: 0}
-	}
+	
 	state = { 
-		requestId: 0,
-		employee:[]
+		btntext: "Show Employees",
 	}
 	
-	handleChange= (e)=> {
-		this.setState({requestId: e.target.value});
+	
+	handleKeydown = (e) => {
+		if(e.charCode ===13){
+			this.handleSubmit();
+		}
 	}
-	handleSubmit= (e) => {
-		//console.log("Form submitted", this.state.requestId);
-		fetch(`employee/${this.state.requestId}`)
-			.then(resp => resp.json())
-			.then(json => this.setState({employee: json}));
+	
 			
-		e.preventDefault(); //Stop from reloading page1
-	}
-			
-		
 	render() { 
 		return (
 			<React.Fragment>
-				<p>Selected ID: {this.state.requestId}</p> 
-				<form onSubmit={this.handleSubmit}>
+				<p>Selected ID: {this.props.requestId}</p> 
+				<form onSubmit={this.props.onSubmit}>
 					<input 
 						type="text" 
 						className="form-control" 
 						placeholder="Employee ID" 
+						style={{marginBottom: "12px"}}
 						//value = {this.state.employeeId}
-						onChange={this.handleChange}
+						onChange={this.props.onChange}
+						onKeyDown={this.handleKeydown}
 					/>
 					<button 
 						type="submit" 
 						className="btn btn-primary"
 					>
-						Show Employee
+						{this.state.btntext}
 					</button>
 				</form>
 			</React.Fragment>
