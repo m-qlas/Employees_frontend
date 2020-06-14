@@ -12,17 +12,30 @@ class LapsTable extends Component {
 							<th>ID</th>
 							<th>Name</th>
 							<th>Processor</th>
-							<th>Ram [GB]</th>
 						</tr>
 					</thead>
 					<tbody>
-						
+						{this.row()}
 					</tbody>
 				</table>
 			</React.Fragment> 
 			
 		);
 	}
+	row = ()=>{
+		let laps = this.props.laps;
+		console.log(laps);
+		return(
+			<tr>
+				{/* <td>{laps.map((x) => {
+					console.log(x);
+				})}</td> */}
+				{/* <td>{emp.laps[0].brand}</td>
+				<td>{emp.laps[0].model}</td> */}
+			</tr>
+		);
+	}
 }
- 
+
+
 export default LapsTable;

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class GetForm extends Component {
 	
 	state = { 
-		btntext: "Show Employees",
+		
 	}
 	
 	
@@ -32,7 +32,7 @@ class GetForm extends Component {
 						type="submit" 
 						className="btn btn-primary"
 					>
-						{this.state.btntext}
+						{this.props.btnText}
 					</button>
 				</form>
 			</React.Fragment>
