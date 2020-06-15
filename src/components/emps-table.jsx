@@ -25,6 +25,7 @@ class EmpTable extends Component {
 							<td>{emp.id}</td>
 							<td>{emp.name}</td>
 							<td>{emp.tech}</td>
+							<td>{emp.managerName}</td>
 						</tr>
 					</tbody>
 				</table>

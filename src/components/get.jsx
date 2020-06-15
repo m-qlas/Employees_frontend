@@ -51,12 +51,19 @@ class Get extends Component {
 		);
 	}
 
-	handleSubmit= (e) => {
-		fetch(`employee/${this.state.requestId}`)
+	handleSubmit= async (e) => {
+		e.preventDefault();
+		await fetch(`employee/${this.state.requestId}`)
 			.then(resp => resp.json())
 			.then(json => this.setState({employee: json}));
 		
-		e.preventDefault(); //Prevent from reloading page1
+		this.setState({
+			tabs: [
+				<EmpTable employee={this.state.employee}/>,
+				<LapsTable laps={this.state.employee.laps}/>
+			]
+		});
+		//Prevent from reloading page1
 	}
 
 	handleChange= (e)=> {

@@ -10,31 +10,39 @@ class LapsTable extends Component {
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Name</th>
-							<th>Processor</th>
+							<th>Brand</th>
+							<th>Model</th>
 						</tr>
 					</thead>
 					<tbody>
-						{this.row()}
+						{this.props.laps.map((laps)=> (
+							<tr key={laps.lId}>
+								{Object.values(laps).map((val) => (
+									<td>{val}</td>
+								))}
+							</tr>
+						))}
 					</tbody>
 				</table>
 			</React.Fragment> 
 			
 		);
 	}
-	row = ()=>{
-		let laps = this.props.laps;
-		console.log(laps);
-		return(
-			<tr>
-				{/* <td>{laps.map((x) => {
-					console.log(x);
-				})}</td> */}
-				{/* <td>{emp.laps[0].brand}</td>
-				<td>{emp.laps[0].model}</td> */}
-			</tr>
-		);
-	}
+	// row = ()=>{
+	// 	let laps = this.props.laps;
+	// 	console.log(laps);
+	// 	return(
+	// 		<tr>
+	// 			{for(let i=0;i<{this.props.laps.length};i++)
+	// 			{
+
+	// 			}}
+	// 			<td>{}</td> 
+	// 			 <td></td>
+	// 			<td>{}</td>
+	// 		</tr>
+	// 	);
+	// }
 }
 
 
