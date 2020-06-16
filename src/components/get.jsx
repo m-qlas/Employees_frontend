@@ -3,25 +3,19 @@ import Jumbo from "./jumbo";
 import GetForm from "./getForm";
 import EmpTable from "./emps-table";
 import LapsTable from "./laps-table";
+import ManTable from "./man-table";
 
 class Get extends Component {
 	state = { 
 		requestId: 0,
 		btnText: "Show Employees",
 		employee:[],
-		empTabVis: false,
-		lapsTabVis: false,
-		tabs:[]
+		tabs:[],
+		progress: "0%",
+		progBarClass: "progress-bar progress-bar-striped bg-success"
 	}
 
-	appendTab = () =>{
-		this.setState({
-			tabs: [
-				<EmpTable employee={this.state.employee}/>,
-				<LapsTable laps={this.state.employee.laps}/>
-			]
-		});
-	}
+	
 	render() { 
 		return ( 
 			<>
@@ -31,7 +25,7 @@ class Get extends Component {
 						<div className="col">
 							{this.state.tabs.map(tab => tab)}
 							<div className="progress">
-								<div className="progress-bar progress-bar-striped bg-danger" id="bar" style={{width: "0%"}}></div>
+								<div className = {this.state.progBarClass} id="bar" style={{width: this.state.progress}}></div>
 							</div>
 						</div>
 					</div>
@@ -53,17 +47,59 @@ class Get extends Component {
 
 	handleSubmit= async (e) => {
 		e.preventDefault();
-		await fetch(`employee/${this.state.requestId}`)
-			.then(resp => resp.json())
-			.then(json => this.setState({employee: json}));
-		
-		this.setState({
-			tabs: [
-				<EmpTable employee={this.state.employee}/>,
-				<LapsTable laps={this.state.employee.laps}/>
-			]
-		});
-		//Prevent from reloading page1
+		this.setState({inErr: false});
+		await this.setState({progress: "100%"});
+
+		if(this.state.btnText==="Show Employee"){
+			await fetch(`employee/${this.state.requestId}`)
+				.then(resp => resp.json())
+				.then(json => this.setState({employee: json}));
+			//Check if employee exists
+			if(this.state.employee.id !== 0){
+				//Check if it's manager
+				if(this.state.employee.managerName !== null){
+					this.setState({
+						tabs: [
+							<EmpTable key='emps' employee={this.state.employee}/>,
+							<LapsTable key='laps' laps={this.state.employee.laps}/>
+						],
+						progBarClass: "progress-bar progress-bar-striped bg-success"
+					});
+				}
+				else{
+					this.setState({
+						tabs: [
+							<ManTable key='man' manager={this.state.employee}/>,
+							<LapsTable key='laps' laps={this.state.employee.laps}/>
+						],
+						progBarClass: "progress-bar progress-bar-striped bg-success"
+					});
+				}
+					
+			}
+			else{
+				this.setState({
+					tabs: [
+						<p key='p'>Employee with selected ID doesn't exist</p>
+					],
+					progBarClass: "progress-bar progress-bar-striped bg-danger"
+				})
+				;
+			}
+				
+		}
+		else{
+			await fetch("employees")
+				.then(resp => resp.json())
+				.then(json => this.setState({employee: json}));
+	
+			this.setState({
+				tabs: [
+					<EmpTable key='emps' employee={this.state.employee}/>,
+				],
+				progBarClass: "progress-bar progress-bar-striped bg-success"
+			});
+		}
 	}
 
 	handleChange= (e)=> {

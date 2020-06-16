@@ -14,14 +14,25 @@ class Navbar extends Component {
 				<div className="collapse navbar-collapse" id="navbarsExampleDefault">
 					<ul className="navbar-nav mr-auto">
 						<li className="nav-item" id="navHome">
-							<a className="nav-link" href="get.html">Get</a>
+							<button 
+								onClick= {this.props.onGet}
+								className="btn btn-dark" 
+								role="button"
+							>
+								Get
+							</button>
 						</li>
 						<li className="nav-item">
-							<a className="nav-link" href="add.html">Add</a>
+							<button 
+								onClick = {this.props.onAdd}
+								className="btn btn-dark" 
+							>
+								Add
+							</button>
 						</li>
-						<li className="nav-item">
+						{/* <li className="nav-item">
 							<a className="nav-link" href="add.html">Remove</a>
-						</li>
+						</li> */}
 					</ul>
 					<form className="form-inline my-2 my-lg-0" action="logout">
 						<button className="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>

@@ -18,7 +18,7 @@ class LapsTable extends Component {
 						{this.props.laps.map((laps)=> (
 							<tr key={laps.lId}>
 								{Object.values(laps).map((val) => (
-									<td>{val}</td>
+									<td key={val.toString()}>{val}</td>
 								))}
 							</tr>
 						))}
