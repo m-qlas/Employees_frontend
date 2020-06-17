@@ -6,16 +6,19 @@ import LapsTable from "./laps-table";
 import ManTable from "./man-table";
 
 class Get extends Component {
+	constructor(props){
+		super(props);
+		this.handleDelete = this.handleDelete.bind(this);
+	}
 	state = { 
 		requestId: 0,
-		btnText: "Show Employees",
+		text: "Employees",
 		employee:[],
 		tabs:[],
 		progress: "0%",
 		progBarClass: "progress-bar progress-bar-striped bg-success"
 	}
 
-	
 	render() { 
 		return ( 
 			<>
@@ -35,11 +38,10 @@ class Get extends Component {
 							<GetForm
 								onSubmit={this.handleSubmit}
 								onChange={this.handleChange}
-								btnText={this.state.btnText}
+								text={this.state.text}
 							/>
 						</div>
 					</div>
-					<br></br>
 				</div>
 			</>
 		);
@@ -47,10 +49,10 @@ class Get extends Component {
 
 	handleSubmit= async (e) => {
 		e.preventDefault();
-		this.setState({inErr: false});
+		
 		await this.setState({progress: "100%"});
 
-		if(this.state.btnText==="Show Employee"){
+		if(this.state.text==="Employee"){
 			await fetch(`employee/${this.state.requestId}`)
 				.then(resp => resp.json())
 				.then(json => this.setState({employee: json}));
@@ -60,10 +62,17 @@ class Get extends Component {
 				if(this.state.employee.managerName !== null){
 					this.setState({
 						tabs: [
-							<EmpTable key='emps' employee={this.state.employee}/>,
-							<LapsTable key='laps' laps={this.state.employee.laps}/>
+							<EmpTable key='emps' 
+								employee={this.state.employee} 
+								text = {this.state.text}
+								onDelete = {this.handleDelete()}
+							/>,
+							<LapsTable key='laps' 
+								laps={this.state.employee.laps}
+							/>
 						],
-						progBarClass: "progress-bar progress-bar-striped bg-success"
+						progBarClass: "progress-bar progress-bar-striped bg-success",
+						
 					});
 				}
 				else{
@@ -75,7 +84,6 @@ class Get extends Component {
 						progBarClass: "progress-bar progress-bar-striped bg-success"
 					});
 				}
-					
 			}
 			else{
 				this.setState({
@@ -95,16 +103,24 @@ class Get extends Component {
 	
 			this.setState({
 				tabs: [
-					<EmpTable key='emps' employee={this.state.employee}/>,
+					<EmpTable key='emps' employee={this.state.employee} text = {this.state.text}/>,
 				],
 				progBarClass: "progress-bar progress-bar-striped bg-success"
 			});
 		}
 	}
 
-	handleChange= (e)=> {
+	handleChange= (e) => {
 		this.setState({requestId: e.target.value});
-		e.target.value === "" ? this.setState({btnText: "Show Employees"}) : this.setState({btnText: "Show Employee"});
+		e.target.value === "" ? this.setState({text: "Employees"}) : this.setState({text: "Employee"});
+	}
+
+	handleDelete = empId => {
+		fetch(`employee/${empId}`,{
+			method: "DELETE"
+		})
+			.then(resp => resp.text())
+			.then(text => this.setState({employee: text}));
 	}
 }
 

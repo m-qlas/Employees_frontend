@@ -35,7 +35,7 @@ class GetForm extends Component {
 						type="submit" 
 						className="btn btn-primary"
 					>
-						{this.props.btnText}
+						Show {this.props.text}
 					</button>
 				</form>
 			</React.Fragment>
