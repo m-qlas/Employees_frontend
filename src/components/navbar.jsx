@@ -1,17 +1,41 @@
 import React, { Component } from "react";
+import {
+	Collapse,
+	NavbarToggler,
+} from "reactstrap";
 
 class Navbar extends Component {
-	state = {  }
+	constructor(props){
+		super(props);
+
+		this.state = { 
+			isOpen: false 
+		};
+	}
+
+	toggle = () => {
+		this.setState({
+			isOpen: !this.state.isOpen
+		});
+	};
 	render() { 
 		return ( 
 			<nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 				<a className="navbar-brand" href="#">Menu</a>
-				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-					aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+				<NavbarToggler 
+					className="navbar-toggler" 
+					type="button" 
+					data-toggle="collapse" 
+					data-target="#myNav"
+					onClick={this.toggle}
+					// aria-controls="myNav" 
+					// aria-expanded="false" 
+					// aria-label="Toggle navigation"
+				>
 					<span className="navbar-toggler-icon"></span>
-				</button>
+				</NavbarToggler>
 
-				<div className="collapse navbar-collapse" id="navbarsExampleDefault">
+				<Collapse isOpen={this.state.isOpen} navbar id="myNav">
 					<ul className="navbar-nav mr-auto">
 						<li className="nav-item" id="navHome">
 							<button 
@@ -30,14 +54,17 @@ class Navbar extends Component {
 								Add
 							</button>
 						</li>
+						<li>
+							
+						</li>
 						{/* <li className="nav-item">
 							<a className="nav-link" href="add.html">Remove</a>
 						</li> */}
 					</ul>
-					<form className="form-inline my-2 my-lg-0" action="logout">
+					<form className="navbar-nav form-inline my-2 my-lg-0" action="logout">
 						<button className="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
 					</form>
-				</div>
+				</Collapse>
 			</nav>
 		);
 	}

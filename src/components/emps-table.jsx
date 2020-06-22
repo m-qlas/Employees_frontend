@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import DelButton from "./del-button";
 
 class EmpTable extends Component {
 	
@@ -34,13 +35,10 @@ class EmpTable extends Component {
 								<td>{emp.tech}</td>
 								<td>{emp.managerName}</td>
 								<td>
-									<button 
-										type="button" 
-										className="btn btn-outline-danger" 
-										onClick={() => this.props.onDelete(emp.id)}
-									>
-										Delete
-									</button>
+									<DelButton
+										onDelete={this.props.onDelete}
+										id={emp.id}
+									/>
 								</td>
 							</tr>
 						))}

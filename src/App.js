@@ -2,17 +2,22 @@ import React, { Component } from "react";
 import Navbar from "./components/navbar";
 import Get from "./components/get";
 import Add from "./components/add";
+
 class App extends Component {
 	state = { 
-		subpage:""
+		subpage:"",
 	};
 	
 	handleGet = () => {
-		this.setState({subpage: <Get/>});
+		this.setState({
+			subpage: <Get jumboText="get" />,
+		});
 	}
 
 	handleAdd = () => {
-		this.setState({subpage: <Add/>});
+		this.setState({
+			subpage: <Add jumboText="add"/>,
+		});
 	}
 
 	render() { 
@@ -24,7 +29,6 @@ class App extends Component {
 				/>
 				<main className="containerl">
 					{this.state.subpage}
-					
 				</main>
 			</>
 

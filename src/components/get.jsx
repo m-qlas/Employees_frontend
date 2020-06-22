@@ -13,6 +13,7 @@ class Get extends Component {
 	state = { 
 		requestId: 0,
 		text: "Employees",
+		jumboText: "",
 		employee:[],
 		tabs:[],
 		progress: "0%",
@@ -22,7 +23,9 @@ class Get extends Component {
 	render() { 
 		return ( 
 			<>
-				<Jumbo/>
+				<Jumbo
+					text={this.props.jumboText}
+				/>
 				<div className="container">
 					<div className="row"> 
 						<div className="col">
@@ -49,7 +52,6 @@ class Get extends Component {
 
 	handleSubmit= async (e) => {
 		e.preventDefault();
-		
 		await this.setState({progress: "100%"});
 
 		if(this.state.text==="Employee"){
@@ -65,7 +67,7 @@ class Get extends Component {
 							<EmpTable key='emps' 
 								employee={this.state.employee} 
 								text = {this.state.text}
-								onDelete = {this.handleDelete()}
+								onDelete = {this.handleDelete}
 							/>,
 							<LapsTable key='laps' 
 								laps={this.state.employee.laps}
@@ -97,16 +99,7 @@ class Get extends Component {
 				
 		}
 		else{
-			await fetch("employees")
-				.then(resp => resp.json())
-				.then(json => this.setState({employee: json}));
-	
-			this.setState({
-				tabs: [
-					<EmpTable key='emps' employee={this.state.employee} text = {this.state.text}/>,
-				],
-				progBarClass: "progress-bar progress-bar-striped bg-success"
-			});
+			this.showAll();
 		}
 	}
 
@@ -115,12 +108,30 @@ class Get extends Component {
 		e.target.value === "" ? this.setState({text: "Employees"}) : this.setState({text: "Employee"});
 	}
 
-	handleDelete = empId => {
-		fetch(`employee/${empId}`,{
+	handleDelete = async empId => {
+		await fetch(`employee/${empId}`,{
 			method: "DELETE"
 		})
 			.then(resp => resp.text())
 			.then(text => this.setState({employee: text}));
+		
+		this.showAll();
+	}
+
+	showAll = async () => {
+		await fetch("employees")
+			.then(resp => resp.json())
+			.then(json => this.setState({employee: json}));
+
+		this.setState({
+			tabs: [
+				<EmpTable key='emps'
+					employee={this.state.employee}
+					text={this.state.text}
+					onDelete={this.handleDelete} />,
+			],
+			progBarClass: "progress-bar progress-bar-striped bg-success"
+		});
 	}
 }
 
