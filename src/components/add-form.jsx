@@ -46,6 +46,7 @@ class AddForm extends Component {
 									name='manager' 
 									id="managerSelect"
 									onChange={this.props.onChange}
+									
 								>
 									{this.state.managers.map((man => (
 										<option key={man.id} value={JSON.stringify(man)}>
@@ -71,16 +72,23 @@ class AddForm extends Component {
 								id="laptopSelect"
 								value={this.props.laptop}
 								onChange={this.props.onLapChange}
+								
 							>
 								{this.state.laps.map((lap => (
-									<option key={lap.id} value={JSON.stringify(lap)}>
+									<option 
+										key={lap.id} 
+										value={JSON.stringify(lap)}
+									>
 										{lap.lId}. {lap.brand} {lap.model}
 									</option>
 								)))}
 							</select>
 						</div>
 					</div>
-					<button type="submit" className="btn btn-primary">
+					<button 
+						type="submit" 
+						className="btn btn-primary"
+					>
 						Add Employee
 					</button>
 				</form>

@@ -21,7 +21,7 @@ class Navbar extends Component {
 	render() { 
 		return ( 
 			<nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-				<a className="navbar-brand" href="#">Menu</a>
+				<span className="navbar-brand" href="#">Menu</span>
 				<NavbarToggler 
 					className="navbar-toggler" 
 					type="button" 
@@ -41,7 +41,7 @@ class Navbar extends Component {
 							<button 
 								onClick= {this.props.onGet}
 								className="btn btn-dark" 
-								role="button"
+								
 							>
 								Get
 							</button>

@@ -5,12 +5,14 @@ import AddForm from "./add-form";
 class Add extends Component {
 	state = { 
 		employee:{
-			laps:[]
+			laps:[],
+			manager:{}
 		},
 		empRcv:{},
-		salary: null 
+		
 	}
 
+	
 	handleChange = e => {
 		let nam = e.target.name;
 		let val;
@@ -24,16 +26,13 @@ class Add extends Component {
 	}
 
 	handleLapChange = e => {
-		
 		let array = this.state.employee.laps.slice();
 		array[0]=(JSON.parse(e.target.value));
-		// this.setState({laptop: e.target.value});
 		const newEmp = { ...this.state.employee, laps: array};
 		this.setState({employee: newEmp});
 	}
-	// handleManChange = e => {
-	// 	let man = 
-	// }
+	
+	
 
 	handleSubmit= e => {
 		e.preventDefault();
@@ -48,6 +47,10 @@ class Add extends Component {
 		fetch("employee", requestOptions)
 			.then(resp => resp.json())
 			.then(json => this.setState({empRcv: json}));
+	}
+	
+	componentDidMount(){
+		
 	}
 	render() { 
 		return ( 

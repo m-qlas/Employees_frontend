@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 
 class Jumbo extends Component {
-	constructor(props){
-		super(props);
-		
-	}
+	
 	state = { 
 		getText : 
 		<>
@@ -39,7 +36,7 @@ class Jumbo extends Component {
 		return ( 
 			<div className="jumbotron" style={{marginTop: "1em", height: "15em" }}>
 				<div className="container">
-					<h2 className="display-4">Hello User!</h2>
+					<h1 className="display-5">Hello User!</h1>
 					{this.renderText()}
 					
 	

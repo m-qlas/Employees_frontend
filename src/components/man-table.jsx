@@ -27,7 +27,7 @@ class ManTable extends Component {
 							<td>{manager.tech}</td>
 							<td>
 								{this.props.manager.subordinates.map((sub) => (
-									<span>{sub.name}</span>
+									<span key= {sub.id}>{sub.name} </span>
 								))}
 							</td>
 						</tr>
