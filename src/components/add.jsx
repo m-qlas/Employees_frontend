@@ -4,13 +4,17 @@ import AddForm from "./add-form";
 
 class Add extends Component {
 	state = { 
-		employee:{},
-		empRcv:{} 
+		employee:{
+			laps:[]
+		},
+		empRcv:{},
+		salary: null 
 	}
 
 	handleChange = e => {
 		let nam = e.target.name;
-		let val = e.target.value;
+		let val;
+		nam === "manager"? val= JSON.parse(e.target.value): val=e.target.value ;
 		
 		this.setState(prevState => {
 			let employee = {... prevState.employee};
@@ -18,6 +22,18 @@ class Add extends Component {
 			return {employee};
 		});
 	}
+
+	handleLapChange = e => {
+		
+		let array = this.state.employee.laps.slice();
+		array[0]=(JSON.parse(e.target.value));
+		// this.setState({laptop: e.target.value});
+		const newEmp = { ...this.state.employee, laps: array};
+		this.setState({employee: newEmp});
+	}
+	// handleManChange = e => {
+	// 	let man = 
+	// }
 
 	handleSubmit= e => {
 		e.preventDefault();
@@ -31,7 +47,7 @@ class Add extends Component {
 
 		fetch("employee", requestOptions)
 			.then(resp => resp.json())
-		 	.then(json => this.setState({empRcv: json}));
+			.then(json => this.setState({empRcv: json}));
 	}
 	render() { 
 		return ( 
@@ -41,6 +57,8 @@ class Add extends Component {
 					<AddForm
 						onSubmit = {this.handleSubmit}
 						onChange = {this.handleChange}
+						onLapChange={this.handleLapChange}
+						laptop={this.state.laptop}
 					/>
 				</div>
 			</>

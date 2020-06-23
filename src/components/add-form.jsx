@@ -2,7 +2,7 @@ import React, { Component } from "react";
 class AddForm extends Component {
 	state = { 
 		laps: [],
-		managers: []
+		managers: [],
 	}
 	async componentDidMount(){
 		await fetch("laps")
@@ -20,10 +20,7 @@ class AddForm extends Component {
 					<div className='row'>
 						<div className='col'>
 							<h5>Enter employee data</h5>
-							{/* <div className="form-group">
-								<input type="text" className="form-control" placeholder="Employee ID" />
-							</div> */}
-							
+														
 							<div className="form-group">
 								<input 
 									type="text" 
@@ -51,7 +48,7 @@ class AddForm extends Component {
 									onChange={this.props.onChange}
 								>
 									{this.state.managers.map((man => (
-										<option key={man.id}>
+										<option key={man.id} value={JSON.stringify(man)}>
 											{man.name} 
 										</option>
 									)))}
@@ -69,10 +66,15 @@ class AddForm extends Component {
 						</div>
 						<div className='col'>
 							<h5>Select laptop for new employee</h5>
-							<select className="form-control" id="laptopSelect">
+							<select 
+								className="form-control" 
+								id="laptopSelect"
+								value={this.props.laptop}
+								onChange={this.props.onLapChange}
+							>
 								{this.state.laps.map((lap => (
-									<option key={lap.id}>
-										{lap.lId} {lap.brand} {lap.model}
+									<option key={lap.id} value={JSON.stringify(lap)}>
+										{lap.lId}. {lap.brand} {lap.model}
 									</option>
 								)))}
 							</select>
