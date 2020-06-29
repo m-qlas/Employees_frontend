@@ -14,6 +14,12 @@ class Jumbo extends Component {
 			<p>Test database SpringBoot Rest App</p>
 			<p>Insert Employee data and select one of the avaliable laptops. <br/>
 			Rest will be added...</p>
+		</>,
+		logText : 
+		<>
+			<p>Test database SpringBoot Rest App</p>
+			<p>Please enter your credentials to gain access<br/>
+			Rest will be added...</p>
 		</>
 	}
 	
@@ -26,8 +32,11 @@ class Jumbo extends Component {
 		if(this.props.text === "get"){
 			return this.state.getText;
 		}
-		else{
+		else if(this.props.text ==="add"){
 			return this.state.addText;
+		}
+		else{
+			return this.state.logText;
 		}		
 	};
 	render() { 
