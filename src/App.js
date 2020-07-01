@@ -26,13 +26,13 @@ class App extends Component {
 	}
 
 	async componentDidMount() {
-		const response = await fetch("/api/user", {credentials: "include"});
+		const response = await fetch("/user", {credentials: "include"});
 		const body = await response.text();
-		if (body === "") {
+		if (body === "anonymousUser") {
 			this.setState(({isAuthenticated: false}));
 		}
 		else {
-			this.setState({isAuthenticated: true, user: JSON.parse(body)});
+			this.setState({isAuthenticated: true, user: body});
 		}
 	}
 	

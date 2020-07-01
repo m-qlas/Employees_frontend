@@ -25,18 +25,19 @@ class LogForm extends Component {
 	handleSubmit = e =>{
 		e.preventDefault();
 		console.log("Submit");
-		
-		
+				
 		const requestOptions = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(this.state.user)
 		};
 
-		fetch("login", requestOptions)
+		fetch("/performLogin", requestOptions)
 			.then(resp => resp.json())
 			.then(json => this.setState({userRcv: json}));
+			
 	}
+
 	render() { 
 		return ( 
 			<>
