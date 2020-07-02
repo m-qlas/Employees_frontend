@@ -3,6 +3,8 @@ import {
 	Collapse,
 	NavbarToggler,
 } from "reactstrap";
+import AuthenticationService from "../services/AuthenticationService";
+import {Link, withRouter} from "react-router-dom";
 
 class Navbar extends Component {
 	constructor(props){
@@ -18,7 +20,7 @@ class Navbar extends Component {
 			isOpen: !this.state.isOpen
 		});
 	};
-	render() { 
+	render() {
 		return ( 
 			<nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 				<span className="navbar-brand" href="#">Menu</span>
@@ -28,9 +30,6 @@ class Navbar extends Component {
 					data-toggle="collapse" 
 					data-target="#myNav"
 					onClick={this.toggle}
-					// aria-controls="myNav" 
-					// aria-expanded="false" 
-					// aria-label="Toggle navigation"
 				>
 					<span className="navbar-toggler-icon"></span>
 				</NavbarToggler>
@@ -57,13 +56,17 @@ class Navbar extends Component {
 						<li>
 							
 						</li>
-						{/* <li className="nav-item">
-							<a className="nav-link" href="add.html">Remove</a>
-						</li> */}
+						
 					</ul>
-					<form className="navbar-nav form-inline my-2 my-lg-0" action="logout">
-						<button className="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
-					</form>
+					
+					<Link 
+						className="btn btn-outline-success my-2 my-sm-0" 
+						onClick={AuthenticationService.logout} 
+						to="/login"
+					>
+						Logout
+					</Link>
+					
 				</Collapse>
 			</nav>
 		);

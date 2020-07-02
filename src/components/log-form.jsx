@@ -1,40 +1,52 @@
 import React, { Component } from "react";
 import Jumbo from "./jumbo";
+import AuthenticationService from "../services/AuthenticationService";
 
 class LogForm extends Component {
 	state = {
-		user:{
-			username:"",
-			password:""
-		},
-		userRcv:{}
-		
+		username:"",
+		password:"",
+		hasLoginFailed: false,
+		showSuccessMessage: false,
 	}
 
 	handleChange = e => {
 		let nam = e.target.name;
 		let val =e.target.value ;
 		
-		this.setState(prevState => {
-			let user = {... prevState.user};
-			user[nam] = val;
-			return {user};
-		});
+		this.setState({[nam]:val});
+
+		// this.setState(prevState => {
+		// 	let user = {... prevState.user};
+		// 	user[nam] = val;
+		// 	return {user};
+		// });
 	}
 
-	handleSubmit = e =>{
-		e.preventDefault();
-		console.log("Submit");
-				
-		const requestOptions = {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(this.state.user)
-		};
+	handleLogin = () => {
+		console.log("Login started");
+		AuthenticationService
+			.executeBasicAuthenticationService(this.state.username, this.state.password)
+			.then(() => {
+				console.log("Login succesfull");
+				AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+				this.props.history.push("/");
+			}).catch(() => {
+				console.log("Login failed");
+				this.setState({ showSuccessMessage: false });
+				this.setState({ hasLoginFailed: true });
+			});
+		// const requestOptions = {
+		// 	method: "POST",
+		// 	headers: { "Content-Type": "application/json" },
+		// 	body: JSON.stringify(this.state.user)
+		// };
 
-		fetch("/performLogin", requestOptions)
-			.then(resp => resp.json())
-			.then(json => this.setState({userRcv: json}));
+		// fetch("/performLogin", requestOptions)
+		// 	.then(resp => resp.json())
+		// 	.then(json => this.setState({userRcv: json}));
+
+
 			
 	}
 
@@ -44,10 +56,11 @@ class LogForm extends Component {
 				<Jumbo
 					text={this.props.jumboText}
 				/>
-				<form className='container' onSubmit={this.handleSubmit}>
+				<div className='container'>
 					<div className='row'>
 						<div className='col'>
-							
+							{this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
+							{this.state.showSuccessMessage && <div>Login Sucessful</div>}
 							<div className="form-group">
 								<input 
 									type="text" 
@@ -69,12 +82,12 @@ class LogForm extends Component {
 						</div>
 					</div>
 					<button 
-						type="submit" 
 						className="btn btn-primary"
+						onClick = {this.handleLogin}
 					>
 						Login
 					</button>
-				</form>
+				</div>
 			
 			</>
 		);

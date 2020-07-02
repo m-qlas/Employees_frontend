@@ -4,10 +4,11 @@ import Navbar from "./components/navbar";
 import Get from "./components/get";
 import Add from "./components/add";
 import LogForm from "./components/log-form";
+import AuthenticatedRoute from "./components/AuthenticatedRoute";
 
 class App extends Component {
 	state = { 
-		subpage:"",
+		subpage:<Get jumboText="get" />,
 		isLoading: true,
 		isAuthenticated: false,
 		user: undefined
@@ -25,23 +26,14 @@ class App extends Component {
 		});
 	}
 
-	async componentDidMount() {
-		const response = await fetch("/user", {credentials: "include"});
-		const body = await response.text();
-		if (body === "anonymousUser") {
-			this.setState(({isAuthenticated: false}));
-		}
-		else {
-			this.setState({isAuthenticated: true, user: body});
-		}
-	}
+	
 	
 	render() { 
 		return (
 			
 			<Router>
 				<Switch>
-					<Route exact path='/'>
+					<AuthenticatedRoute exact path='/'>
 						<Navbar
 							onGet = {this.handleGet}
 							onAdd = {this.handleAdd} 
@@ -49,10 +41,8 @@ class App extends Component {
 						<main className="container">
 							{this.state.subpage}
 						</main>
-					</Route>
-					<Route exact path='/login'>
-						<LogForm/>
-					</Route>
+					</AuthenticatedRoute>
+					<Route exact path='/login' component={LogForm}/>
 				</Switch> 
 			</Router>
 
