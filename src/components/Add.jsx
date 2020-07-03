@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Jumbo from "./jumbo";
-import AddForm from "./add-form";
+import Jumbo from "./Jumbo";
+import AddForm from "./AddForm";
+import Axios from "axios";
 
 class Add extends Component {
 	state = { 
@@ -40,18 +41,15 @@ class Add extends Component {
 
 		const requestOptions = {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
+			// headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(this.state.employee)
 		};
 
-		fetch("employee", requestOptions)
-			.then(resp => resp.json())
-			.then(json => this.setState({empRcv: json}));
+		Axios.post("employee", this.state.employee)
+			.then(resp => this.setState({empRcv: resp.data}));
 	}
 	
-	componentDidMount(){
-		
-	}
+	
 	render() { 
 		return ( 
 			<>

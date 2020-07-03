@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import{BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
-import Navbar from "./components/navbar";
-import Get from "./components/get";
-import Add from "./components/add";
-import LogForm from "./components/log-form";
+import Navbar from "./components/Navbar";
+import Get from "./components/Get";
+import Add from "./components/Add";
+import LogForm from "./components/LogForm";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 
 class App extends Component {
 	state = { 
-		subpage:<Get jumboText="get" />,
-		isLoading: true,
-		isAuthenticated: false,
-		user: undefined
+		subpage:<Get jumboText="get" />
+		
 	};
 	
 	handleGet = () => {

@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import Jumbo from "./jumbo";
-import GetForm from "./getForm";
-import EmpTable from "./emps-table";
-import LapsTable from "./laps-table";
-import ManTable from "./man-table";
+import Jumbo from "./Jumbo";
+import GetForm from "./GetForm";
+import EmpTable from "./EmpTable";
+import LapsTable from "./LapsTable";
+import ManTable from "./ManTable";
+import AuthenticationService from "../services/AuthenticationService";
+import axios from "axios";
+
 
 class Get extends Component {
 	constructor(props){
@@ -54,10 +57,14 @@ class Get extends Component {
 		e.preventDefault();
 		await this.setState({progress: "100%"});
 
+		// if(this.state.text==="Employee"){
+		// 	await fetch(`employee/${this.state.requestId}`)
+		// 		.then(resp => resp.json())
+		// 		.then(json => this.setState({employee: json}));
+
 		if(this.state.text==="Employee"){
-			await fetch(`employee/${this.state.requestId}`)
-				.then(resp => resp.json())
-				.then(json => this.setState({employee: json}));
+			await axios.get(`employee/${this.state.requestId}`)
+				.then(resp =>  this.setState({employee: resp.data}));
 			//Check if employee exists
 			if(this.state.employee.id !== 0){
 				//Check if it's manager
@@ -119,9 +126,8 @@ class Get extends Component {
 	}
 
 	showAll = async () => {
-		await fetch("employees")
-			.then(resp => resp.json())
-			.then(json => this.setState({employee: json}));
+		await axios.get("employees")
+			.then(resp =>  this.setState({employee: resp.data}));
 
 		this.setState({
 			tabs: [

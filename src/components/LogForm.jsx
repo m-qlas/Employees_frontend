@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Jumbo from "./jumbo";
+import Jumbo from "./Jumbo";
 import AuthenticationService from "../services/AuthenticationService";
 
 class LogForm extends Component {

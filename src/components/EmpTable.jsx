@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import DelButton from "./del-button";
+import DelButton from "./DelButton";
 
 class EmpTable extends Component {
 	
