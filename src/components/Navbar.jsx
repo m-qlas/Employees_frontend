@@ -42,19 +42,24 @@ class Navbar extends Component {
 								className="btn btn-dark" 
 								
 							>
-								Get
+								Find
 							</button>
 						</li>
 						<li className="nav-item">
 							<button 
-								onClick = {this.props.onAdd}
+								onClick = {this.props.onEmpAdd}
 								className="btn btn-dark" 
 							>
-								Add
+								Add Employee
 							</button>
 						</li>
-						<li>
-							
+						<li className="nav-item">
+							<button 
+								onClick = {this.props.onLapAdd}
+								className="btn btn-dark" 
+							>
+								Add Laptop
+							</button>
 						</li>
 						
 					</ul>
@@ -66,7 +71,6 @@ class Navbar extends Component {
 					>
 						Logout
 					</Link>
-					
 				</Collapse>
 			</nav>
 		);

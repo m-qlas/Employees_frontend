@@ -10,17 +10,17 @@ class LogForm extends Component {
 		showSuccessMessage: false,
 	}
 
+	handleKeyPress = e => {
+		if(e.charCode ===13){
+			this.handleLogin();
+		}
+	}
+
 	handleChange = e => {
 		let nam = e.target.name;
 		let val =e.target.value ;
 		
 		this.setState({[nam]:val});
-
-		// this.setState(prevState => {
-		// 	let user = {... prevState.user};
-		// 	user[nam] = val;
-		// 	return {user};
-		// });
 	}
 
 	handleLogin = () => {
@@ -36,18 +36,7 @@ class LogForm extends Component {
 				this.setState({ showSuccessMessage: false });
 				this.setState({ hasLoginFailed: true });
 			});
-		// const requestOptions = {
-		// 	method: "POST",
-		// 	headers: { "Content-Type": "application/json" },
-		// 	body: JSON.stringify(this.state.user)
-		// };
-
-		// fetch("/performLogin", requestOptions)
-		// 	.then(resp => resp.json())
-		// 	.then(json => this.setState({userRcv: json}));
-
-
-			
+					
 	}
 
 	render() { 
@@ -68,6 +57,7 @@ class LogForm extends Component {
 									name='username' 
 									placeholder="Enter login" 
 									onChange={this.handleChange}
+									onKeyPress={this.handleKeyPress}
 								/>
 							</div>
 							<div className="form-group">
@@ -77,6 +67,7 @@ class LogForm extends Component {
 									name='password' 
 									placeholder="Enter password" 
 									onChange={this.handleChange}
+									onKeyPress={this.handleKeyPress}
 								/>
 							</div>
 						</div>

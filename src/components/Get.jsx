@@ -16,7 +16,6 @@ class Get extends Component {
 	state = { 
 		requestId: 0,
 		text: "Employees",
-		jumboText: "",
 		employee:[],
 		tabs:[],
 		progress: "0%",
@@ -26,9 +25,7 @@ class Get extends Component {
 	render() { 
 		return ( 
 			<>
-				<Jumbo
-					text={this.props.jumboText}
-				/>
+				<Jumbo text={this.props.jumboText}/>
 				<div className="container">
 					<div className="row"> 
 						<div className="col">

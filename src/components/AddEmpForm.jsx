@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-class AddForm extends Component {
+class AddEmpForm extends Component {
 	state = { 
 		laps: [],
 		managers: [],
@@ -97,4 +97,4 @@ class AddForm extends Component {
 	}
 }
  
-export default AddForm;
+export default AddEmpForm;

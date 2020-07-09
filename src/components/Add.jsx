@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Jumbo from "./Jumbo";
-import AddForm from "./AddForm";
+import AddEmpForm from "./AddEmpForm";
 import Axios from "axios";
 
 class Add extends Component {
@@ -53,9 +53,9 @@ class Add extends Component {
 	render() { 
 		return ( 
 			<>
-				<Jumbo/>
+				<Jumbo text={this.props.jumboText}/>
 				<div className="container">
-					<AddForm
+					<AddEmpForm
 						onSubmit = {this.handleSubmit}
 						onChange = {this.handleChange}
 						onLapChange={this.handleLapChange}
