@@ -14,12 +14,12 @@ class Get extends Component {
 		this.handleDelete = this.handleDelete.bind(this);
 	}
 	state = { 
-		requestId: 0,
 		text: "Employees",
 		employee:[],
 		tabs:[],
 		progress: "0%",
-		progBarClass: "progress-bar progress-bar-striped bg-success"
+		progBarClass: "progress-bar progress-bar-striped bg-success",
+		selected: null
 	}
 
 	render() { 
@@ -54,47 +54,60 @@ class Get extends Component {
 		e.preventDefault();
 		await this.setState({progress: "100%"});
 
-		// if(this.state.text==="Employee"){
-		// 	await fetch(`employee/${this.state.requestId}`)
-		// 		.then(resp => resp.json())
-		// 		.then(json => this.setState({employee: json}));
-
 		if(this.state.text==="Employee"){
-			await axios.get(`employee/${this.state.requestId}`)
-				.then(resp =>  this.setState({employee: resp.data}));
+			switch(this.state.selected){
+			case "id":
+				await axios.get(`employee/id/${this.state.id}`)
+					.then(resp =>  this.setState({employee: resp.data}));
+				break;
+			case "name":
+				await axios.get(`employee/name/${this.state.name}`)
+					.then(resp =>  this.setState({employee: resp.data}));
+				break;
+			case "tech":
+				await axios.get(`employee/tech/${this.state.tech}`)
+					.then(resp =>  this.setState({employee: resp.data}));
+				break;
+			}
+			
 			//Check if employee exists
 			if(this.state.employee.id !== 0){
-				//Check if it's manager
-				if(this.state.employee.managerName !== null){
-					this.setState({
-						tabs: [
-							<EmpTable key='emps' 
-								employee={this.state.employee} 
-								text = {this.state.text}
-								onDelete = {this.handleDelete}
-							/>,
-							<LapsTable key='laps' 
-								laps={this.state.employee.laps}
-							/>
-						],
-						progBarClass: "progress-bar progress-bar-striped bg-success",
-						
-					});
+				if(this.state.employee.length>1){
+					this.showAll();
 				}
 				else{
-					this.setState({
-						tabs: [
-							<ManTable key='man' manager={this.state.employee}/>,
-							<LapsTable key='laps' laps={this.state.employee.laps}/>
-						],
-						progBarClass: "progress-bar progress-bar-striped bg-success"
-					});
+					//Check if it's manager
+					if(this.state.employee.managerName !== null){
+						this.setState({
+							tabs: [
+								<EmpTable key='emps' 
+									employee={this.state.employee[0]} 
+									text = {this.state.text}
+									onDelete = {this.handleDelete}
+								/>,
+								<LapsTable key='laps' 
+									laps={this.state.employee[0].laps}
+								/>
+							],
+							progBarClass: "progress-bar progress-bar-striped bg-success",
+						});
+					}
+					else{
+						this.setState({
+							tabs: [
+								<ManTable key='man' manager={this.state.employee}/>,
+								<LapsTable key='laps' laps={this.state.employee.laps}/>
+							],
+							progBarClass: "progress-bar progress-bar-striped bg-success"
+						});
+					}
 				}
+				
 			}
 			else{
 				this.setState({
 					tabs: [
-						<p key='p'>Employee with selected ID doesn't exist</p>
+						<p key='p'>Employee with selected paramaters doesn't exist</p>
 					],
 					progBarClass: "progress-bar progress-bar-striped bg-danger"
 				})
@@ -103,12 +116,17 @@ class Get extends Component {
 				
 		}
 		else{
+			await axios.get("employees")
+				.then(resp =>  this.setState({employee: resp.data}));
 			this.showAll();
 		}
 	}
 
 	handleChange= (e) => {
-		this.setState({requestId: e.target.value});
+		let nam = e.target.name;
+		let val = e.target.value;
+		this.setState({[nam]: val});
+		this.setState({selected: nam});
 		e.target.value === "" ? this.setState({text: "Employees"}) : this.setState({text: "Employee"});
 	}
 
@@ -123,9 +141,6 @@ class Get extends Component {
 	}
 
 	showAll = async () => {
-		await axios.get("employees")
-			.then(resp =>  this.setState({employee: resp.data}));
-
 		this.setState({
 			tabs: [
 				<EmpTable key='emps'
