@@ -10,6 +10,8 @@ class Add extends Component {
 			manager:{}
 		},
 		empRcv:{},
+		showFailMessage: false,
+		showSuccessMessage: false,
 		
 	}
 
@@ -39,14 +41,9 @@ class Add extends Component {
 		e.preventDefault();
 		console.log("Submit");
 
-		const requestOptions = {
-			method: "POST",
-			// headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(this.state.employee)
-		};
-
 		Axios.post("employee", this.state.employee)
-			.then(resp => this.setState({empRcv: resp.data}));
+			.then(resp => this.setState({empRcv: resp.data, showSuccessMessage: true, showFailMessage:false})
+			).catch(()=> {this.setState({showFailMessage: true, showSuccessMessage:false});});
 	}
 	
 	
@@ -55,6 +52,8 @@ class Add extends Component {
 			<>
 				<Jumbo text={this.props.jumboText}/>
 				<div className="container">
+					{this.state.showFailMessage && <div className="alert alert-warning">Provide complete data for employee</div>}
+					{this.state.showSuccessMessage && <div className="alert alert-success">Employee added!</div>}
 					<AddEmpForm
 						onSubmit = {this.handleSubmit}
 						onChange = {this.handleChange}

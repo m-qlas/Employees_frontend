@@ -5,8 +5,13 @@ import Axios from "axios";
 
 class AddLaptop extends Component {
 	state = { 
-		laptop:{},
-		response: ""		
+		laptop:{
+			"brand": "",
+			"model": ""
+		},
+		response: "",
+		showFailMessage: false,
+		showSuccessMessage: false		
 	}
 
 	handleChange = e => {
@@ -23,9 +28,14 @@ class AddLaptop extends Component {
 	handleSubmit= e => {
 		e.preventDefault();
 		console.log("Submit");
-
-		Axios.post("laptop", this.state.laptop)
-			.then(resp => this.setState({response: resp.data}));
+		if(this.state.laptop.brand === "" || this.state.laptop.model === ""){
+			this.setState({showFailMessage:true, showSuccessMessage:false});
+		}
+		else{
+			Axios.post("laptop", this.state.laptop)
+				.then(resp => this.setState({response: resp.data, showSuccessMessage: true, showFailMessage:false})
+				).catch(()=> {this.setState({showFailMessage: true, showSuccessMessage:false});});
+		}
 	}
 	
 	
@@ -34,6 +44,8 @@ class AddLaptop extends Component {
 			<>
 				<Jumbo text={this.props.jumboText}/>
 				<div className="container">
+					{this.state.showFailMessage && <div className="alert alert-warning">Provide complete data of laptop</div>}
+					{this.state.showSuccessMessage && <div className="alert alert-success">Laptop added!</div>}
 					<AddLapForm
 						onSubmit = {this.handleSubmit}
 						onChange = {this.handleChange}

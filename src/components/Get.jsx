@@ -71,13 +71,14 @@ class Get extends Component {
 			}
 			
 			//Check if employee exists
-			if(this.state.employee.id !== 0){
+			if(this.state.employee.length !== 0){
 				if(this.state.employee.length>1){
+					console.log("Showing multiple employees");
 					this.showAll();
 				}
 				else{
 					//Check if it's manager
-					if(this.state.employee.managerName !== null){
+					if(this.state.employee[0].managerName !== null){
 						this.setState({
 							tabs: [
 								<EmpTable key='emps' 
@@ -95,8 +96,8 @@ class Get extends Component {
 					else{
 						this.setState({
 							tabs: [
-								<ManTable key='man' manager={this.state.employee}/>,
-								<LapsTable key='laps' laps={this.state.employee.laps}/>
+								<ManTable key='man' manager={this.state.employee[0]}/>,
+								<LapsTable key='laps' laps={this.state.employee[0].laps}/>
 							],
 							progBarClass: "progress-bar progress-bar-striped bg-success"
 						});
@@ -141,6 +142,8 @@ class Get extends Component {
 	}
 
 	showAll = async () => {
+		await axios.get("employees")
+			.then(resp =>  this.setState({employee: resp.data}));
 		this.setState({
 			tabs: [
 				<EmpTable key='emps'

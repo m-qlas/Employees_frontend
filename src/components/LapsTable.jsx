@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 class LapsTable extends Component {
 	state = {  }
+
+	
 	render() { 
 		return (
 			<React.Fragment>
