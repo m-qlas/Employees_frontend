@@ -7,40 +7,42 @@ class EmpTable extends Component {
 		data: this.props.employee,
 		sortAsc: false
 	}
-	
+
+	static getDerivedStateFromProps(props, state){
+		if(state.data !== props.employee){
+			return{
+				data: props.employee
+			};
+		}
+		return null;
+		
+	}
 	onSort(event, sortKey){
 		let asc = this.state.sortAsc;
 		const data = this.state.data;
 		
 		if(asc){
+			console.log("ASC");
 			data.sort((a,b)=>{
 				if(a[sortKey] < b[sortKey])
 					return -1;
 			});
-			asc = true;
+			this.setState({sortAsc:false});
 		}
 		else{
+			console.log("DESC");
 			data.sort((a,b)=>{
-				if(a[sortKey] < b[sortKey])
-					return 1;
+				if(a[sortKey] > b[sortKey])
+					return -1;
 			});
-			this.setState({data});
-			asc=false;
+			this.setState({sortAsc:true});
+			
 		}
-		
-
-		
 	}
 	render() { 
-		let emps = [];
-
-		if(!Array.isArray(this.state.data)){
-			emps.push(this.state.data);
-		}
-		else{
-			emps=this.state.data;
-		}
-
+		let emps = this.state.data;
+		console.log(emps);	
+		
 		return (
 			<React.Fragment>
 				<h4>{this.props.text}</h4>
@@ -68,16 +70,11 @@ class EmpTable extends Component {
 								</td>
 							</tr>
 						))}
-						
 					</tbody>
 				</table>
 			</React.Fragment> 
 		);
 	}
-
-	
-
-	
 }
 
 

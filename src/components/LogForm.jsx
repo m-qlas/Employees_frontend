@@ -42,6 +42,9 @@ class LogForm extends Component {
 	render() { 
 		return ( 
 			<>
+				<nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+					<span className="navbar-brand" href="#">Menu</span>
+				</nav>
 				<Jumbo
 					text={this.props.jumboText}
 				/>

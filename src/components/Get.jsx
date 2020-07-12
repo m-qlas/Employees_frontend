@@ -74,7 +74,16 @@ class Get extends Component {
 			if(this.state.employee.length !== 0){
 				if(this.state.employee.length>1){
 					console.log("Showing multiple employees");
-					this.showAll();
+					
+					this.setState({
+						tabs: [
+							<EmpTable key='emps'
+								employee={this.state.employee}
+								text={this.state.text}
+								onDelete={this.handleDelete} />,
+						],
+						progBarClass: "progress-bar progress-bar-striped bg-success"
+					});
 				}
 				else{
 					//Check if it's manager
@@ -82,7 +91,7 @@ class Get extends Component {
 						this.setState({
 							tabs: [
 								<EmpTable key='emps' 
-									employee={this.state.employee[0]} 
+									employee={[this.state.employee[0]]} 
 									text = {this.state.text}
 									onDelete = {this.handleDelete}
 								/>,
@@ -117,8 +126,6 @@ class Get extends Component {
 				
 		}
 		else{
-			await axios.get("employees")
-				.then(resp =>  this.setState({employee: resp.data}));
 			this.showAll();
 		}
 	}

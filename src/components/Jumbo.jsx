@@ -5,27 +5,24 @@ class Jumbo extends Component {
 	state = { 
 		getText : 
 		<>
-			<p>Test database SpringBoot Rest App</p>
-			<p>Insert Employee ID to get specific Employee or Manager. <br/>
-			Don't enter ID to get list of all employees.</p>
+			<p>Test React SpringBoot Database App</p>
+			<p>Insert Employee data to get specific Employee or Manager. <br/>
+			Don't enter enything to get list of all employees.</p>
 		</>,
 		addEmpText : 
 		<>
-			<p>Test database SpringBoot Rest App</p>
-			<p>Insert Employee data and select one of the avaliable laptops. <br/>
-			Rest will be added...</p>
+			<p>Test React SpringBoot Database App</p>
+			<p>Insert Employee data and select one of the avaliable laptops. </p>
 		</>,
 		addLapText : 
 		<>
-			<p>Test database SpringBoot Rest App</p>
-			<p>Insert data of laptop you want to add <br/>
-			Rest will be added...</p>
+			<p>Test React SpringBoot Database App</p>
+			<p>Insert data of laptop you want to add </p>
 		</>,
 		logText : 
 		<>
-			<p>Test database SpringBoot Rest App</p>
-			<p>Please enter your credentials to gain access<br/>
-			Rest will be added...</p>
+			<p>Test React SpringBoot Database App</p>
+			<p>Please enter your credentials to gain access</p>
 		</>
 	}
 		
