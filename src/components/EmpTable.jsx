@@ -15,7 +15,6 @@ class EmpTable extends Component {
 			};
 		}
 		return null;
-		
 	}
 	onSort(event, sortKey){
 		let asc = this.state.sortAsc;
@@ -24,21 +23,29 @@ class EmpTable extends Component {
 		if(asc){
 			console.log("ASC");
 			data.sort((a,b)=>{
-				if(a[sortKey] < b[sortKey])
+				if(a[sortKey] < b[sortKey]){
 					return -1;
+				}
+				if(a[sortKey] > b[sortKey]){
+					return 1;
+				}
 			});
 			this.setState({sortAsc:false});
 		}
 		else{
 			console.log("DESC");
 			data.sort((a,b)=>{
-				if(a[sortKey] > b[sortKey])
+				if(a[sortKey] > b[sortKey]){
 					return -1;
+				}
+				if(a[sortKey] < b[sortKey]){
+					return 1;
+				}
 			});
 			this.setState({sortAsc:true});
-			
 		}
 	}
+
 	render() { 
 		let emps = this.state.data;
 		console.log(emps);	
@@ -78,5 +85,4 @@ class EmpTable extends Component {
 }
 
 
- 
 export default EmpTable;
