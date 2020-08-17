@@ -25,8 +25,8 @@ class AddEmpForm extends Component {
 								<input 
 									type="text" 
 									className="form-control" 
-									name='name' 
-									placeholder="Name" 
+									name='firstName' 
+									placeholder="First name" 
 									onChange={this.props.onChange}
 								/>
 							</div>
@@ -34,8 +34,17 @@ class AddEmpForm extends Component {
 								<input 
 									type="text" 
 									className="form-control" 
-									name='tech' 
-									placeholder="Technology" 
+									name='lastName' 
+									placeholder="Last name" 
+									onChange={this.props.onChange}
+								/>
+							</div>
+							<div className="form-group">
+								<input 
+									type="text" 
+									className="form-control" 
+									name='department' 
+									placeholder="Department" 
 									onChange={this.props.onChange}
 								/>
 							</div>
@@ -50,7 +59,7 @@ class AddEmpForm extends Component {
 								>
 									{this.state.managers.map((man => (
 										<option key={man.id} value={JSON.stringify(man)}>
-											{man.name} 
+											{man.firstName} 
 										</option>
 									)))}
 								</select>

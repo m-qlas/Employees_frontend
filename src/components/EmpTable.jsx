@@ -57,18 +57,19 @@ class EmpTable extends Component {
 					<thead>
 						<tr>
 							<th onClick={e => this.onSort(e,"id")}>ID</th>
-							<th onClick={e => this.onSort(e,"name")}>Name</th>
-							<th onClick={e => this.onSort(e,"tech")}>Technology</th>
-							<th onClick={e => this.onSort(e,"managerName")}>Manager</th>
+							<th onClick={e => this.onSort(e,"firstName")}>First name</th>
+							<th onClick={e => this.onSort(e,"lastName")}>Last name</th>
+							<th onClick={e => this.onSort(e,"department")}>Department</th>
+							
 						</tr>
 					</thead>
 					<tbody>
 						{emps.map((emp)=> (
 							<tr key={emp.id} >
 								<td>{emp.id}</td>
-								<td>{emp.name}</td>
-								<td>{emp.tech}</td>
-								<td>{emp.managerName}</td>
+								<td>{emp.firstName}</td>
+								<td>{emp.lastName}</td>
+								<td>{emp.department}</td>
 								<td>
 									<DelButton
 										onDelete={this.props.onDelete}
