@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import{BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Get from "./components/Get";
-import Add from "./components/Add";
+import GetEmpSubpage from "./components/GetEmpSubpage";
+import AddEmpSubpage from "./components/AddEmpSubpage";
 import LogForm from "./components/LogForm";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
-import AddLaptop from "./components/AddLaptop";
+import AddLapSubpage from "./components/AddLapSubpage";
+import EmpDetailsSubpage from "./components/EmpDetailsSubpage";
 
 class App extends Component {
 	state = { 
-		subpage:<Get jumboText="get" />
+		subpage:<GetEmpSubpage jumboText="get" />
 	};
 	
-	handleGet = () => {this.setState({subpage: <Get jumboText="get" />});}
-	handleEmpAdd = () => {this.setState({subpage: <Add jumboText="addEmp"/>});}
-	handleLapAdd = () => {this.setState({subpage: <AddLaptop jumboText="addLap"/>});}
+	handleGet = () => {this.setState({subpage: <GetEmpSubpage jumboText="get" />});}
+	handleEmpAdd = () => {this.setState({subpage: <AddEmpSubpage jumboText="addEmp"/>});}
+	handleLapAdd = () => {this.setState({subpage: <AddLapSubpage jumboText="addLap"/>});}
+	handleDetails = empID => {this.setState({subpage: <EmpDetailsSubpage jumboText="empDetails" id={empID} />});}
 	
 	
 	render() { 

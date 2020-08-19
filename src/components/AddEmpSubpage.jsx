@@ -3,7 +3,7 @@ import Jumbo from "./Jumbo";
 import AddEmpForm from "./AddEmpForm";
 import Axios from "axios";
 
-class Add extends Component {
+class AddEmpSubpage extends Component {
 	state = { 
 		employee:{
 			laps:[],
@@ -66,4 +66,4 @@ class Add extends Component {
 	}
 }
  
-export default Add;
+export default AddEmpSubpage;

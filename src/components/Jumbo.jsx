@@ -19,6 +19,11 @@ class Jumbo extends Component {
 			<p>Test React SpringBoot Database App</p>
 			<p>Insert data of laptop you want to add </p>
 		</>,
+		empDetText : 
+		<>
+			<p>Test React SpringBoot Database App</p>
+			<p>Details of employee </p>
+		</>,
 		logText : 
 		<>
 			<p>Test React SpringBoot Database App</p>
@@ -35,6 +40,8 @@ class Jumbo extends Component {
 			return this.state.addEmpText;
 		case "addLap":
 			return this.state.addLapText;
+		case "empDet":
+			return this.state.empDetText;
 		default:
 			return this.state.logText;
 

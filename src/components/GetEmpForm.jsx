@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class GetForm extends Component {
+class GetEmpForm extends Component {
 	
 	state = { }
 	
@@ -36,8 +36,8 @@ class GetForm extends Component {
 							<input 
 								type="text" 
 								className="form-control" 
-								placeholder="Name" 
-								name="name"
+								placeholder="First name" 
+								name="firstName"
 								style={{
 									marginBottom: "12px",
 									marginTop:"12px"
@@ -52,8 +52,40 @@ class GetForm extends Component {
 							<input 
 								type="text" 
 								className="form-control"
-								name='tech' 
-								placeholder="Technology" 
+								name='lastName' 
+								placeholder="Last name" 
+								style={{
+									marginBottom: "12px",
+									marginTop:"12px"
+								}}
+								//value = {this.state.employeeId}
+								onChange={this.props.onChange}
+								onKeyDown={this.handleKeydown}
+							/>
+						</div>
+
+						<div className="col">
+							<input 
+								type="text" 
+								className="form-control"
+								name='role' 
+								placeholder="Role" 
+								style={{
+									marginBottom: "12px",
+									marginTop:"12px"
+								}}
+								//value = {this.state.employeeId}
+								onChange={this.props.onChange}
+								onKeyDown={this.handleKeydown}
+							/>
+						</div>
+
+						<div className="col">
+							<input 
+								type="text" 
+								className="form-control"
+								name='department' 
+								placeholder="Department" 
 								style={{
 									marginBottom: "12px",
 									marginTop:"12px"
@@ -77,4 +109,4 @@ class GetForm extends Component {
 	}
 }
 		
-export default GetForm;
+export default GetEmpForm;

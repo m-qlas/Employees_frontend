@@ -3,7 +3,7 @@ import Jumbo from "./Jumbo";
 import AddLapForm from "./AddLapForm";
 import Axios from "axios";
 
-class AddLaptop extends Component {
+class AddLapSubpage extends Component {
 	state = { 
 		laptop:{
 			"brand": "",
@@ -56,4 +56,4 @@ class AddLaptop extends Component {
 	}
 }
  
-export default AddLaptop;
+export default AddLapSubpage;

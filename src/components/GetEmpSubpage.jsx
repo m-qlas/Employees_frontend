@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Jumbo from "./Jumbo";
-import GetForm from "./GetForm";
+import GetEmpForm from "./GetEmpForm";
 import EmpTable from "./EmpTable";
 import LapsTable from "./LapsTable";
 import ManTable from "./ManTable";
@@ -8,7 +8,7 @@ import AuthenticationService from "../services/AuthenticationService";
 import axios from "axios";
 
 
-class Get extends Component {
+class GetEmpSubpage extends Component {
 	constructor(props){
 		super(props);
 		this.handleDelete = this.handleDelete.bind(this);
@@ -38,7 +38,7 @@ class Get extends Component {
 					
 					<div className="row">
 						<div className="col">
-							<GetForm
+							<GetEmpForm
 								onSubmit={this.handleSubmit}
 								onChange={this.handleChange}
 								text={this.state.text}
@@ -60,12 +60,20 @@ class Get extends Component {
 				await axios.get(`employee/id/${this.state.id}`)
 					.then(resp =>  this.setState({employee: resp.data}));
 				break;
-			case "name":
-				await axios.get(`employee/name/${this.state.name}`)
+			case "firstName":
+				await axios.get(`employee/firstName/${this.state.firstName}`)
 					.then(resp =>  this.setState({employee: resp.data}));
 				break;
-			case "tech":
-				await axios.get(`employee/tech/${this.state.tech}`)
+			case "lastName":
+				await axios.get(`employee/lastName/${this.state.lastName}`)
+					.then(resp =>  this.setState({employee: resp.data}));
+				break;
+			case "role":
+				await axios.get(`employee/role/${this.state.role}`)
+					.then(resp =>  this.setState({employee: resp.data}));
+				break;
+			case "department":
+				await axios.get(`employee/department/${this.state.department}`)
 					.then(resp =>  this.setState({employee: resp.data}));
 				break;
 			}
@@ -94,6 +102,7 @@ class Get extends Component {
 									employee={[this.state.employee[0]]} 
 									text = {this.state.text}
 									onDelete = {this.handleDelete}
+									onDetails = {this.props.onDetails}
 								/>,
 								<LapsTable key='laps' 
 									laps={this.state.employee[0].laps}
@@ -164,4 +173,4 @@ class Get extends Component {
 }
 
 
-export default Get;
+export default GetEmpSubpage;

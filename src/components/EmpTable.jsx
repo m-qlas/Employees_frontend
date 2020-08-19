@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import DelButton from "./DelButton";
+import DelButton from "./buttons/DelButton";
+import DetailButton from "./buttons/DetailButton";
 
 class EmpTable extends Component {
 	
@@ -59,7 +60,8 @@ class EmpTable extends Component {
 							<th onClick={e => this.onSort(e,"id")}>ID</th>
 							<th onClick={e => this.onSort(e,"firstName")}>First name</th>
 							<th onClick={e => this.onSort(e,"lastName")}>Last name</th>
-							<th onClick={e => this.onSort(e,"department")}>Department</th>
+							<th onClick={e => this.onSort(e,"role")}>Role</th>
+							<th onClick={e => this.onSort(e,"departmentName")}>Department</th>
 							
 						</tr>
 					</thead>
@@ -69,7 +71,14 @@ class EmpTable extends Component {
 								<td>{emp.id}</td>
 								<td>{emp.firstName}</td>
 								<td>{emp.lastName}</td>
-								<td>{emp.department}</td>
+								<td>{emp.eDetails.role}</td>
+								<td>{emp.departmentName}</td>
+								<td>
+									<DetailButton
+										onDetails={this.props.onDetails}
+										id={emp.id}
+									/>
+								</td>
 								<td>
 									<DelButton
 										onDelete={this.props.onDelete}
