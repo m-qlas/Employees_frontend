@@ -88,7 +88,8 @@ class GetEmpSubpage extends Component {
 							<EmpTable key='emps'
 								employee={this.state.employee}
 								text={this.state.text}
-								onDelete={this.handleDelete} />,
+								onDelete={this.handleDelete}
+								onDetails = {this.props.onDetails} />,
 						],
 						progBarClass: "progress-bar progress-bar-striped bg-success"
 					});
@@ -148,15 +149,17 @@ class GetEmpSubpage extends Component {
 	}
 
 	handleDelete = async empId => {
+		console.log("Deleting started");
 		await fetch(`employee/${empId}`,{
 			method: "DELETE"
 		})
 			.then(resp => resp.text())
 			.then(text => this.setState({employee: text}));
-		
+		console.log("Deleting finished");
 		this.showAll();
 	}
 
+	
 	showAll = async () => {
 		await axios.get("employees")
 			.then(resp =>  this.setState({employee: resp.data}));
@@ -165,7 +168,9 @@ class GetEmpSubpage extends Component {
 				<EmpTable key='emps'
 					employee={this.state.employee}
 					text={this.state.text}
-					onDelete={this.handleDelete} />,
+					onDelete={this.handleDelete}
+					onDetails={this.props.onDetails} 
+				/>,
 			],
 			progBarClass: "progress-bar progress-bar-striped bg-success"
 		});

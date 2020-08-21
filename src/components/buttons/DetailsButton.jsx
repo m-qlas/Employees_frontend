@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-class DetailButton extends Component {
+class DetailsButton extends Component {
 	state = {  }
 	render() { 
 		
@@ -7,7 +7,7 @@ class DetailButton extends Component {
 			<button 
 				type="button" 
 				className="btn btn-outline-info" 
-				onClick= {() => this.props.onDetails(this.props.id)}
+				onClick= {this.props.onDetails}
 			>
 			Details
 			</button> 
@@ -15,4 +15,4 @@ class DetailButton extends Component {
 	}
 }
  
-export default DetailButton;
+export default DetailsButton;

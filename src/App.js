@@ -13,7 +13,7 @@ class App extends Component {
 		subpage:<GetEmpSubpage jumboText="get" />
 	};
 	
-	handleGet = () => {this.setState({subpage: <GetEmpSubpage jumboText="get" />});}
+	handleGet = () => {this.setState({subpage: <GetEmpSubpage jumboText="get" onDetails= {this.handleDetails}/>});}
 	handleEmpAdd = () => {this.setState({subpage: <AddEmpSubpage jumboText="addEmp"/>});}
 	handleLapAdd = () => {this.setState({subpage: <AddLapSubpage jumboText="addLap"/>});}
 	handleDetails = empID => {this.setState({subpage: <EmpDetailsSubpage jumboText="empDetails" id={empID} />});}

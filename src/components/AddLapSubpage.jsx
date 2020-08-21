@@ -26,13 +26,16 @@ class AddLapSubpage extends Component {
 	}
 
 	handleSubmit= e => {
+		const postOptions = {headers : "Content-Type: application/json"};
 		e.preventDefault();
-		console.log("Submit");
+		
 		if(this.state.laptop.brand === "" || this.state.laptop.model === ""){
+			console.log("Input data not correct");
 			this.setState({showFailMessage:true, showSuccessMessage:false});
 		}
 		else{
-			Axios.post("laptop", this.state.laptop)
+			console.log("Submit");
+			Axios.post("laptop", this.state.laptop, postOptions)
 				.then(resp => this.setState({response: resp.data, showSuccessMessage: true, showFailMessage:false})
 				).catch(()=> {this.setState({showFailMessage: true, showSuccessMessage:false});});
 		}

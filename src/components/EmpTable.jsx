@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import DelButton from "./buttons/DelButton";
-import DetailButton from "./buttons/DetailButton";
+import DetailsButton from "./buttons/DetailsButton";
 
 class EmpTable extends Component {
 	
@@ -74,7 +74,7 @@ class EmpTable extends Component {
 								<td>{emp.eDetails.role}</td>
 								<td>{emp.departmentName}</td>
 								<td>
-									<DetailButton
+									<DetailsButton
 										onDetails={this.props.onDetails}
 										id={emp.id}
 									/>
