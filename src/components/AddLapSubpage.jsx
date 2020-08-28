@@ -35,7 +35,7 @@ class AddLapSubpage extends Component {
 		}
 		else{
 			console.log("Submit");
-			Axios.post("laptop", this.state.laptop, postOptions)
+			Axios.post("laptop", this.state.laptop)
 				.then(resp => this.setState({response: resp.data, showSuccessMessage: true, showFailMessage:false})
 				).catch(()=> {this.setState({showFailMessage: true, showSuccessMessage:false});});
 		}

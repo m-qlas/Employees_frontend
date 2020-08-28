@@ -7,23 +7,57 @@ class AddEmpSubpage extends Component {
 	state = { 
 		employee:{
 			laps:[],
-			manager:{}
+			manager:{},
+			department:"qwerty",
+			empDetails:{
+				salary: 0,
+				role: "",
+				hireDate:""
+			},
+			man: ""
 		},
 		empRcv:{},
 		showFailMessage: false,
 		showSuccessMessage: false,
 		
 	}
-
 	
+	componentDidMount(){
+		
+	}
 	handleChange = e => {
 		let nam = e.target.name;
 		let val;
-		nam === "manager"? val= JSON.parse(e.target.value): val=e.target.value ;
+		nam === "department"? val= JSON.parse(e.target.value): val=e.target.value ;
 		
 		this.setState(prevState => {
 			let employee = {... prevState.employee};
 			employee[nam] = val;
+			return {employee};
+		});
+	}
+
+	handleDepChange = e => {
+		let nam = e.target.name;
+		let val = JSON.parse(e.target.value);
+		let deptName = this.state.employee.department.name;
+		console.log(deptName);
+		Axios.get(`employee/department/${deptName}`)
+			.then(resp => this.setState({man: resp.data}));
+		this.setState(prevState => {
+			let employee = {... prevState.employee};
+			employee[nam] = val;
+			return {employee};
+		});
+	}
+
+	handleDetChange = e => {
+		let nam = e.target.name;
+		let val = e.target.value;
+				
+		this.setState(prevState => {
+			let employee = {... prevState.employee};
+			employee.empDetails[nam] = val;
 			return {employee};
 		});
 	}
@@ -35,8 +69,6 @@ class AddEmpSubpage extends Component {
 		this.setState({employee: newEmp});
 	}
 	
-	
-
 	handleSubmit= e => {
 		e.preventDefault();
 		console.log("Submit");
@@ -45,7 +77,6 @@ class AddEmpSubpage extends Component {
 			.then(resp => this.setState({empRcv: resp.data, showSuccessMessage: true, showFailMessage:false})
 			).catch(()=> {this.setState({showFailMessage: true, showSuccessMessage:false});});
 	}
-	
 	
 	render() { 
 		return ( 
@@ -58,6 +89,8 @@ class AddEmpSubpage extends Component {
 						onSubmit = {this.handleSubmit}
 						onChange = {this.handleChange}
 						onLapChange={this.handleLapChange}
+						onDetChange={this.handleDetChange}
+						onDepChange={this.handleDepChange}
 						laptop={this.state.laptop}
 					/>
 				</div>

@@ -3,15 +3,16 @@ class AddEmpForm extends Component {
 	state = { 
 		laps: [],
 		managers: [],
+		departments: []
 	}
 	async componentDidMount(){
 		await fetch("laps")
 			.then(resp => resp.json())
 			.then(json => this.setState({laps: json}));
 
-		await fetch("managers")
+		await fetch("departments")
 			.then(resp => resp.json())
-			.then(json => this.setState({managers: json}));
+			.then(json => this.setState({departments: json}));
 	}
 	render() { 
 		return ( 
@@ -19,7 +20,7 @@ class AddEmpForm extends Component {
 				<form  onSubmit={this.props.onSubmit}>
 					<div className='row'>
 						<div className='col'>
-							<h5>Enter employee data</h5>
+							<label>Enter employee data</label>
 														
 							<div className="form-group">
 								<input 
@@ -30,7 +31,8 @@ class AddEmpForm extends Component {
 									onChange={this.props.onChange}
 								/>
 							</div>
-							<div className="form-group">
+
+							<div>
 								<input 
 									type="text" 
 									className="form-control" 
@@ -39,61 +41,77 @@ class AddEmpForm extends Component {
 									onChange={this.props.onChange}
 								/>
 							</div>
+							<br/>
 							<div className="form-group">
-								<input 
-									type="text" 
-									className="form-control" 
-									name='department' 
-									placeholder="Department" 
-									onChange={this.props.onChange}
-								/>
-							</div>
-							<div className="form-group">
-								<label htmlFor="#managerSelect">Select Manager</label>
+								<label htmlFor="depSelect">Select department</label>
 								<select 
 									className="form-control" 
-									name='manager' 
-									id="managerSelect"
-									onChange={this.props.onChange}
-									
+									name='department' 
+									id="depSelect"
+									onChange={this.props.onDepChange}
 								>
-									{this.state.managers.map((man => (
-										<option key={man.id} value={JSON.stringify(man)}>
-											{man.firstName} 
+									{this.state.departments.map((dep => (
+										<option key={dep.id} value={JSON.stringify(dep)}>
+											{dep.name} 
 										</option>
 									)))}
 								</select>
 							</div>
-							{/* <div className="form-group">
+						</div>
+						<div className='col'>
+							<div className='form-group'>
+								<label>Select laptop for new employee</label>
+								<select 
+									className="form-control" 
+									id="laptopSelect"
+									value={this.props.laptop}
+									onChange={this.props.onLapChange}
+								>
+									{this.state.laps.map((lap => (
+										<option 
+											key={lap.id} 
+											value={JSON.stringify(lap)}
+										>
+											{lap.lId}. {lap.brand} {lap.model}
+										</option>
+									)))}
+								</select>
+							</div>
+							<div className='form-group'>
+								<label>Enter job details</label>
 								<input 
 									type="number" 
 									className="form-control" 
 									name='salary' 
 									placeholder="Salary" 
-									onChange={this.props.onChange}
+									onChange={this.props.onDetChange}
 								/>
-							</div> */}
-						</div>
-						<div className='col'>
-							<h5>Select laptop for new employee</h5>
-							<select 
-								className="form-control" 
-								id="laptopSelect"
-								value={this.props.laptop}
-								onChange={this.props.onLapChange}
+							</div>
+
+							<div className='form-group'>
+								<input 
+									type="text" 
+									className="form-control" 
+									name='role' 
+									placeholder="Role" 
+									onChange={this.props.onDetChange}
+								/>
+							</div>
 								
-							>
-								{this.state.laps.map((lap => (
-									<option 
-										key={lap.id} 
-										value={JSON.stringify(lap)}
-									>
-										{lap.lId}. {lap.brand} {lap.model}
-									</option>
-								)))}
-							</select>
-						</div>
+							<div className='form-group'>
+								<label htmlFor="hireDate">Enter hire date</label>
+								<input 
+									type="date" 
+									className="form-control" 
+									name='hireDate'
+									id="hireDate" 
+									placeholder="Hire date"
+									onChange={this.props.onDetChange}
+								/>
+							</div>
+						</div>	
 					</div>
+					
 					<button 
 						type="submit" 
 						className="btn btn-primary"
@@ -101,8 +119,7 @@ class AddEmpForm extends Component {
 						Add Employee
 					</button>
 				</form>
-			</>
-		);
+			</>	);
 	}
 }
  
