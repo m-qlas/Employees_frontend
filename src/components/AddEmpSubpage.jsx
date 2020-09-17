@@ -8,8 +8,8 @@ class AddEmpSubpage extends Component {
 		employee:{
 			laps:[],
 			manager:{},
-			department:"qwerty",
-			empDetails:{
+			department:{},
+			eDetails:{
 				salary: 0,
 				role: "",
 				hireDate:""
@@ -22,9 +22,25 @@ class AddEmpSubpage extends Component {
 		
 	}
 	
-	componentDidMount(){
+	async componentDidMount(){
+		await fetch("laps")
+			.then(resp => resp.json())
+			.then(json => this.setState(prevState => {
+				let employee = {... prevState.employee};
+				employee.laps[0] = json[0];
+				return {employee};
+			}));
+
+		await fetch("departments")
+			.then(resp => resp.json())
+			.then(json => this.setState(prevState => {
+				let employee = {... prevState.employee};
+				employee.department = json[0];
+				return {employee};
+			}));
 		
 	}
+
 	handleChange = e => {
 		let nam = e.target.name;
 		let val;
@@ -40,16 +56,17 @@ class AddEmpSubpage extends Component {
 	handleDepChange = e => {
 		let nam = e.target.name;
 		let val = JSON.parse(e.target.value);
-		let deptName = this.state.employee.department.name;
-		console.log(deptName);
-		Axios.get(`employee/department/${deptName}`)
-			.then(resp => this.setState({man: resp.data}));
-		this.setState(prevState => {
-			let employee = {... prevState.employee};
-			employee[nam] = val;
-			return {employee};
-		});
+		let deptName = val.name;
+		Axios.get(`manager/${deptName}`)
+			.then(resp => this.setState(prevState => {
+				let employee = {... prevState.employee};
+				employee[nam] = val;
+				employee.manager = resp.data;
+				return {employee};
+			}));
 	}
+
+	
 
 	handleDetChange = e => {
 		let nam = e.target.name;
@@ -57,7 +74,7 @@ class AddEmpSubpage extends Component {
 				
 		this.setState(prevState => {
 			let employee = {... prevState.employee};
-			employee.empDetails[nam] = val;
+			employee.eDetails[nam] = val;
 			return {employee};
 		});
 	}

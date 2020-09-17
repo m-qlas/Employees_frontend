@@ -20,7 +20,7 @@ class EmpTable extends Component {
 	onSort(event, sortKey){
 		let asc = this.state.sortAsc;
 		const data = this.state.data;
-		
+		console.log(`SortKey ${sortKey}`);
 		if(asc){
 			console.log("ASC");
 			data.sort((a,b)=>{
@@ -60,7 +60,7 @@ class EmpTable extends Component {
 							<th onClick={e => this.onSort(e,"id")}>ID</th>
 							<th onClick={e => this.onSort(e,"firstName")}>First name</th>
 							<th onClick={e => this.onSort(e,"lastName")}>Last name</th>
-							<th onClick={e => this.onSort(e,"role")}>Role</th>
+							<th onClick={e => this.onSort(e,"eDetails")}>Role</th>
 							<th onClick={e => this.onSort(e,"departmentName")}>Department</th>
 							
 						</tr>
@@ -93,6 +93,5 @@ class EmpTable extends Component {
 		);
 	}
 }
-
 
 export default EmpTable;

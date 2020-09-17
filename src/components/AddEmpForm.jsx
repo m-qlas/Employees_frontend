@@ -29,6 +29,7 @@ class AddEmpForm extends Component {
 									name='firstName' 
 									placeholder="First name" 
 									onChange={this.props.onChange}
+									
 								/>
 							</div>
 
@@ -66,6 +67,7 @@ class AddEmpForm extends Component {
 									id="laptopSelect"
 									value={this.props.laptop}
 									onChange={this.props.onLapChange}
+									
 								>
 									{this.state.laps.map((lap => (
 										<option 
