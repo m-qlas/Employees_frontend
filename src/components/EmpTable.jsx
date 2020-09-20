@@ -52,7 +52,7 @@ class EmpTable extends Component {
 		console.log(emps);	
 		
 		return (
-			<React.Fragment>
+			<>
 				<h4>{this.props.text}</h4>
 				<table className="table table-striped">
 					<thead>
@@ -73,23 +73,13 @@ class EmpTable extends Component {
 								<td>{emp.lastName}</td>
 								<td>{emp.eDetails.role}</td>
 								<td>{emp.departmentName}</td>
-								<td>
-									<DetailsButton
-										onDetails={this.props.onDetails}
-										id={emp.id}
-									/>
-								</td>
-								<td>
-									<DelButton
-										onDelete={this.props.onDelete}
-										id={emp.id}
-									/>
-								</td>
+								<td><DetailsButton onDetails={this.props.onDetails} id={emp.id}/></td>
+								<td><DelButton onDelete={this.props.onDelete} id={emp.id} /></td>
 							</tr>
 						))}
 					</tbody>
 				</table>
-			</React.Fragment> 
+			</> 
 		);
 	}
 }

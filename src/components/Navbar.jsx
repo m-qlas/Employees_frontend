@@ -37,31 +37,14 @@ class Navbar extends Component {
 				<Collapse isOpen={this.state.isOpen} navbar id="myNav">
 					<ul className="navbar-nav mr-auto">
 						<li className="nav-item" id="navHome">
-							<button 
-								onClick= {this.props.onGet}
-								className="btn btn-dark" 
-								
-							>
-								Find
-							</button>
+							<button onClick= {this.props.onGet} className="btn btn-dark">Find</button>
 						</li>
 						<li className="nav-item">
-							<button 
-								onClick = {this.props.onEmpAdd}
-								className="btn btn-dark" 
-							>
-								Add Employee
-							</button>
+							<button onClick = {this.props.onEmpAdd} className="btn btn-dark">Add Employee</button>
 						</li>
 						<li className="nav-item">
-							<button 
-								onClick = {this.props.onLapAdd}
-								className="btn btn-dark" 
-							>
-								Add Laptop
-							</button>
+							<button onClick = {this.props.onLapAdd} className="btn btn-dark">Add Laptop</button>
 						</li>
-						
 					</ul>
 					
 					<Link 

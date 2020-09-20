@@ -21,7 +21,6 @@ class AddEmpForm extends Component {
 					<div className='row'>
 						<div className='col'>
 							<label>Enter employee data</label>
-														
 							<div className="form-group">
 								<input 
 									type="text" 
@@ -67,7 +66,6 @@ class AddEmpForm extends Component {
 									id="laptopSelect"
 									value={this.props.laptop}
 									onChange={this.props.onLapChange}
-									
 								>
 									{this.state.laps.map((lap => (
 										<option 

@@ -16,7 +16,6 @@ class AddEmpSubpage extends Component {
 			},
 			man: ""
 		},
-		empRcv:{},
 		showFailMessage: false,
 		showSuccessMessage: false,
 		
@@ -65,8 +64,6 @@ class AddEmpSubpage extends Component {
 				return {employee};
 			}));
 	}
-
-	
 
 	handleDetChange = e => {
 		let nam = e.target.name;

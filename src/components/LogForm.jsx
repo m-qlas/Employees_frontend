@@ -19,7 +19,6 @@ class LogForm extends Component {
 	handleChange = e => {
 		let nam = e.target.name;
 		let val =e.target.value ;
-		
 		this.setState({[nam]:val});
 	}
 
@@ -36,7 +35,6 @@ class LogForm extends Component {
 				this.setState({ showSuccessMessage: false });
 				this.setState({ hasLoginFailed: true });
 			});
-					
 	}
 
 	render() { 

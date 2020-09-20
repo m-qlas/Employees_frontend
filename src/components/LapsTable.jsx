@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import DelButton from "./buttons/DelButton";
+import LapModal from "./LapModal";
 class LapsTable extends Component {
 	
 	state = { 
@@ -14,6 +15,12 @@ class LapsTable extends Component {
 			};
 		}
 		return null;
+	}
+
+	async componentDidMount(){
+		await fetch("laps")
+			.then(resp => resp.json())
+			.then(json => this.setState({freeLaps: json}));
 	}
 
 	onSort(event, sortKey){
@@ -35,10 +42,18 @@ class LapsTable extends Component {
 					return -1;
 			});
 			this.setState({sortAsc:true});
-			
 		}
 	}
-	
+	handleDelete = async lId => {
+		await fetch(`laptop/${lId}`,{
+			method: "PUT"
+		});
+		// .then(resp => resp.text())
+		// .then(text => this.setState({employee: text}));
+	}
+	handleAdd = lId => {
+		console.log("Selected laptop: " + lId);
+	}
 	render() {
 		let laps = this.state.data;
 	
@@ -51,37 +66,31 @@ class LapsTable extends Component {
 							<th onClick={e => this.onSort(e,"lId")}>ID</th>
 							<th onClick={e => this.onSort(e,"brand")}>Brand</th>
 							<th onClick={e => this.onSort(e,"model")}>Model</th>
+							<th><LapModal buttonLabel = "Add" laps= {this.state.freeLaps} onAdd = {this.handleAdd}/> </th>
 						</tr>
 					</thead>
 					<tbody>
-						{laps.map((lap)=> (
+						{/* {laps.map((lap)=> (
 							<tr key={lap.lId}>
 								{Object.values(lap).map((val) => (
 									<td key={val.toString()}>{val}</td>
 								))}
 							</tr>
+						))} */}
+						{laps.map((lap) => (
+							<tr key={lap.lId}>
+								<td>{lap.lId}</td>
+								<td>{lap.brand}</td>
+								<td>{lap.model}</td>
+								<td><DelButton onDelete={this.handleDelete} id={lap.lId} /></td>
+							</tr>
+
 						))}
 					</tbody>
 				</table>
 			</React.Fragment> 
 		);
 	}
-	// row = ()=>{
-	// 	let laps = this.props.laps;
-	// 	console.log(laps);
-	// 	return(
-	// 		<tr>
-	// 			{for(let i=0;i<{this.props.laps.length};i++)
-	// 			{
-
-	// 			}}
-	// 			<td>{}</td> 
-	// 			 <td></td>
-	// 			<td>{}</td>
-	// 		</tr>
-	// 	);
-	// }
 }
-
 
 export default LapsTable;

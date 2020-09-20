@@ -80,49 +80,19 @@ class GetEmpSubpage extends Component {
 			
 			//Check if employee exists
 			if(this.state.employee.length !== 0){
-				if(this.state.employee.length>1){
-					console.log("Showing multiple employees");
-					
-					this.setState({
-						tabs: [
-							<EmpTable key='emps'
-								employee={this.state.employee}
-								text={this.state.text}
-								onDelete={this.handleDelete}
-								onDetails = {this.props.onDetails} />,
-						],
-						progBarClass: "progress-bar progress-bar-striped bg-success"
-					});
-				}
-				else{
-					//Check if it's manager
-					if(this.state.employee[0].managerName !== null){
-						this.setState({
-							tabs: [
-								<EmpTable key='emps' 
-									employee={[this.state.employee[0]]} 
-									text = {this.state.text}
-									onDelete = {this.handleDelete}
-									onDetails = {this.props.onDetails}
-								/>,
-								<LapsTable key='laps' 
-									laps={this.state.employee[0].laps}
-								/>
-							],
-							progBarClass: "progress-bar progress-bar-striped bg-success",
-						});
-					}
-					else{
-						this.setState({
-							tabs: [
-								<ManTable key='man' manager={this.state.employee[0]}/>,
-								<LapsTable key='laps' laps={this.state.employee[0].laps}/>
-							],
-							progBarClass: "progress-bar progress-bar-striped bg-success"
-						});
-					}
-				}
+				let emp;
+				this.state.employee.length>1?emp=this.state.employee:emp=[this.state.employee[0]];
 				
+				this.setState({
+					tabs: [
+						<EmpTable key='emps'
+							employee={emp}
+							text={this.state.text}
+							onDelete={this.handleDelete}
+							onDetails = {this.props.onDetails} />,
+					],
+					progBarClass: "progress-bar progress-bar-striped bg-success"
+				});
 			}
 			else{
 				this.setState({
@@ -130,10 +100,8 @@ class GetEmpSubpage extends Component {
 						<p key='p'>Employee with selected paramaters doesn't exist</p>
 					],
 					progBarClass: "progress-bar progress-bar-striped bg-danger"
-				})
-				;
+				});
 			}
-				
 		}
 		else{
 			this.showAll();
@@ -159,7 +127,6 @@ class GetEmpSubpage extends Component {
 		this.showAll();
 	}
 
-	
 	showAll = async () => {
 		await axios.get("employees")
 			.then(resp =>  this.setState({employee: resp.data}));

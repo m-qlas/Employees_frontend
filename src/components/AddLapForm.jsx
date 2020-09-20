@@ -3,15 +3,13 @@ class AddLapForm extends Component {
 	state = { 
 		
 	}
-	
 	render() { 
 		return ( 
 			<>
 				<form onSubmit={this.props.onSubmit}>
 					<div className='row'>
 						<div className='col'>
-							<h5>Enter laptop data</h5>
-														
+							<label>Enter laptop data</label>
 							<div className="form-group">
 								<input 
 									type="text" 

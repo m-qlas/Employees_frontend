@@ -12,8 +12,7 @@ class GetEmpForm extends Component {
 	
 	render() { 
 		return (
-			<React.Fragment>
-				
+			<>
 				<form onSubmit={this.props.onSubmit}>
 					<div className='form-row'>
 						<div className="col">
@@ -104,7 +103,7 @@ class GetEmpForm extends Component {
 						Show {this.props.text}
 					</button>
 				</form>
-			</React.Fragment>
+			</>
 		);
 	}
 }

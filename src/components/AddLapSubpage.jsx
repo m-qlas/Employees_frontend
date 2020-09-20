@@ -26,7 +26,6 @@ class AddLapSubpage extends Component {
 	}
 
 	handleSubmit= e => {
-		const postOptions = {headers : "Content-Type: application/json"};
 		e.preventDefault();
 		
 		if(this.state.laptop.brand === "" || this.state.laptop.model === ""){
@@ -40,7 +39,6 @@ class AddLapSubpage extends Component {
 				).catch(()=> {this.setState({showFailMessage: true, showSuccessMessage:false});});
 		}
 	}
-	
 	
 	render() { 
 		return ( 

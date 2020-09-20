@@ -2,7 +2,6 @@ import React, { Component } from "react";
 class DelButton extends Component {
 	state = {  }
 	render() { 
-		
 		return ( 
 			<button 
 				type="button" 
@@ -14,5 +13,4 @@ class DelButton extends Component {
 		);
 	}
 }
- 
 export default DelButton;
