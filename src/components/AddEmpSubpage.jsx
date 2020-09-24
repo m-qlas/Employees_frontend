@@ -37,13 +37,12 @@ class AddEmpSubpage extends Component {
 				employee.department = json[0];
 				return {employee};
 			}));
-		
 	}
 
 	handleChange = e => {
 		let nam = e.target.name;
-		let val;
-		nam === "department"? val= JSON.parse(e.target.value): val=e.target.value ;
+		let val = e.target.value;
+		// nam === "department"? val= JSON.parse(e.target.value): val=e.target.value ;
 		
 		this.setState(prevState => {
 			let employee = {... prevState.employee};

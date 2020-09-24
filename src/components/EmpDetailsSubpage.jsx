@@ -5,14 +5,45 @@ import axios from "axios";
 
 class EmpDetailsSubpage extends Component {
 	state = { 
-		employee: null
+		employee: null,
+		changedLap: null,
+		recvLap: null
 	}
 
-	componentDidMount = async () => {
+	componentDidMount = async() => {
+		console.log("ComponentDidMount");
 		await axios.get(`employee/id/${this.props.id}`)
 			.then(resp =>  this.setState({employee: resp.data}));
-	
 	}
+
+	handleChange = e => {
+		// let array = this.state.employee[0].laps;
+		// array[1]= (JSON.parse(e.target.value));
+		// this.setState(prevState => {
+		// 	let employee = {...prevState.employee};
+		// 	employee.laps = array;
+		// 	return {employee};
+		// });
+		this.setState({changedLap: JSON.parse(e.target.value)});
+	}
+
+	handleAdd = async() => {
+		let lap = this.state.changedLap;
+		console.log("handleAdd");
+		await axios.put(`laptop/update/${lap.lId}`, this.state.employee[0])
+			.then(resp => this.setState({recvLap: resp.data}));
+		await axios.get(`employee/id/${this.props.id}`)
+			.then(resp =>  this.setState({employee: resp.data}));
+	}
+
+	handleDelete = async lId => {
+		await fetch(`laptop/${lId}`,{
+			method: "PUT"
+		});
+		await axios.get(`employee/id/${this.props.id}`)
+			.then(resp =>  this.setState({employee: resp.data}));
+	}
+
 	render() {
 		let emp;
 		let isManager = false;
@@ -32,7 +63,6 @@ class EmpDetailsSubpage extends Component {
 							<h4>Employee details</h4>
 							:
 							<h4>Manager details</h4>}
-						
 					</div>
 					<div className = 'row'>
 						<div className = 'col'>
@@ -45,7 +75,6 @@ class EmpDetailsSubpage extends Component {
 									<li className="list-group-item"><b>Last name:</b> {emp.lastName}</li>
 									<li className="list-group-item"><b>Department:</b> {emp.departmentName}</li>
 								</ul>
-								
 							}
 						</div>
 						<div className = 'col'>
@@ -67,7 +96,11 @@ class EmpDetailsSubpage extends Component {
 						{this.state.employee===null? 
 							<p>Loading</p>
 							:
-							<LapsTable key='laps' laps={emp.laps}/>
+							<LapsTable key='laps' 
+								onAdd={this.handleAdd} 
+								onChange={this.handleChange} 
+								onDelete={this.handleDelete}
+								laps={emp.laps}/>
 						}
 					</div>
 				</div>
@@ -76,6 +109,4 @@ class EmpDetailsSubpage extends Component {
 	}
 }
  
-
-
 export default EmpDetailsSubpage;

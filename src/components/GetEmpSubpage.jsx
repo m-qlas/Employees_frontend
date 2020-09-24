@@ -3,7 +3,6 @@ import Jumbo from "./Jumbo";
 import GetEmpForm from "./GetEmpForm";
 import EmpTable from "./EmpTable";
 import LapsTable from "./LapsTable";
-import ManTable from "./ManTable";
 import AuthenticationService from "../services/AuthenticationService";
 import axios from "axios";
 

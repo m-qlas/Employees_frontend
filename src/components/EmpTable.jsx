@@ -17,6 +17,7 @@ class EmpTable extends Component {
 		}
 		return null;
 	}
+
 	onSort(event, sortKey){
 		let asc = this.state.sortAsc;
 		const data = this.state.data;
@@ -49,7 +50,6 @@ class EmpTable extends Component {
 
 	render() { 
 		let emps = this.state.data;
-		console.log(emps);	
 		
 		return (
 			<>
@@ -62,7 +62,6 @@ class EmpTable extends Component {
 							<th onClick={e => this.onSort(e,"lastName")}>Last name</th>
 							<th onClick={e => this.onSort(e,"eDetails")}>Role</th>
 							<th onClick={e => this.onSort(e,"departmentName")}>Department</th>
-							
 						</tr>
 					</thead>
 					<tbody>

@@ -68,10 +68,7 @@ class AddEmpForm extends Component {
 									onChange={this.props.onLapChange}
 								>
 									{this.state.laps.map((lap => (
-										<option 
-											key={lap.id} 
-											value={JSON.stringify(lap)}
-										>
+										<option key={lap.id} value={JSON.stringify(lap)}>
 											{lap.lId}. {lap.brand} {lap.model}
 										</option>
 									)))}

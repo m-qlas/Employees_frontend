@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Col, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 
@@ -6,14 +7,23 @@ const ModalExample = (props) => {
 	const {
 		buttonLabel,
 		className,
-		laps,
-		onAdd
+		onAdd,
+		onChange
 	} = props;
 
 	const [modal, setModal] = useState(false);
 
 	const toggle = () => setModal(!modal);
-
+	const [freeLaps, setLaps] = useState(null);
+	
+	useEffect(() => {
+		if(modal){
+			fetch("laps")
+				.then(resp => resp.json())
+				.then(json => setLaps(json));
+		}
+		
+	});
     
 	return (
 		<div>
@@ -21,34 +31,33 @@ const ModalExample = (props) => {
 			<Modal isOpen={modal} toggle={toggle} className={className}>
 				<ModalHeader toggle={toggle}>Select laptop to add</ModalHeader>
 				<ModalBody>
-					{laps=== undefined?
+					{freeLaps=== null?
 						<p>Loading...</p>
 						:
 						<Form>
 							<FormGroup row>
 								<Label for="exampleSelectMulti" sm={2}>Select Multiple</Label>
 								<Col sm={10}>
-									<Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
-										{laps.map((lap) => (
-											<option key={lap.id}>{lap.lId} {lap.brand} {lap.model}</option>
+									<Input type="select" name="selectMulti" id="exampleSelectMulti" onChange={onChange} multiple>
+										{freeLaps.map((lap) => (
+											<option key={lap.id} value={JSON.stringify(lap)}>{lap.lId} {lap.brand} {lap.model}</option>
 										))}
 									</Input>
 								</Col>
 							</FormGroup>
-							<FormGroup check row>
+							{/* <FormGroup check row>
 								<Col sm={{ size: 10, offset: 2 }}>
 									<Button color="primary" onClick={onAdd}>Add</Button>
-									<Button color="secondary" onClick={toggle}>Cancel</Button>
+									<Button color="secondary" onClick={toggle}>Close</Button>
 								</Col>
-								
-							</FormGroup>
+							</FormGroup> */}
 						</Form>
 					}
 				</ModalBody>
-				{/* <ModalFooter>
-					<Button color="primary" onClick={onAdd}>Add</Button>{" "}
-					<Button color="secondary" onClick={toggle}>Cancel</Button>
-				</ModalFooter> */}
+				<ModalFooter>
+					<Button color="primary" onClick={onAdd}>Add</Button>
+					<Button color="secondary" onClick={toggle}>Close</Button>
+				</ModalFooter>
 			</Modal>
 		</div>
 	);
